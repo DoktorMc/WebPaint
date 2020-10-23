@@ -1,0 +1,49 @@
+body{
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+.paint_navbar{
+    position: relative;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    background: #e4e4e4;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 1px 5px #807f7f;
+    
+}
+
+.paint_navbar a{
+    display: inline-block;
+    margin-right: 20px;
+    color: #ffffff;
+    cursor: pointer;
+    transition: 0.2s;
+    user-select: none;
+    background: #807f7f;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px #5f5f5f;
+
+}
+
+.paint_navbar a:hover{
+    color: #b5ff8a;
+}
+.paint_navbar a:active{
+    box-shadow: none;
+}
+
+.paint_palitra{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    top: 50px;
+    left: 0;
+    box-sizing: border-box;
+}
