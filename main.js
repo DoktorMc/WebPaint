@@ -10,10 +10,40 @@ $canvas.height = palitraHeight;
 
 let action = false;
 let coords = [];
-let lnWidth = 1;
+let lnWidth = 5;
 let strTime = new Date().getTime();
 
 ctx.lineWidth = lnWidth;
+
+if (localStorage.getItem("draw")) {
+  coords = JSON.parse(localStorage.getItem("draw"));
+}
+
+let coordsCopy = coords;
+
+function setLS() {
+  localStorage.setItem("draw", JSON.stringify(coords));
+}
+
+function addItemLS(x, y) {
+  coords.push({
+    x: x,
+    y: y
+  });
+  setLS();
+}
+
+function drawLine(x, y) {
+  ctx.lineTo(x, y);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(x, y, lnWidth / 2, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+}
 
 function reset() {
   ctx.clearRect(0, 0, palitraWidth, palitraHeight);
@@ -21,40 +51,36 @@ function reset() {
 
 function replay() {
   reset();
-  let crrTime = new Date().getTime();
-  let progress = (crrTime - strTime) / 1000;
-  if (!coords.length) {
-    progress = 0;
-    ctx.beginPath();
-    return;
-	} 
-	if (progress <= coords.length) {
-    strTime = new Date().getTime();
-    let crrCoords = coords.shift();
-
-    // console.log(crrCoords);
-		// console.log(progress);
-		console.log(crrCoords.x);
-    ctx.lineTo(crrCoords.x, crrCoords.y);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(crrCoords.x, crrCoords.y, lnWidth / 2, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.moveTo(crrCoords.x, crrCoords.y);
-
-    requestAnimationFrame(replay);
+  // getCoords();
+  function playLine() {
+    if (!coordsCopy.length) {
+      ctx.beginPath();
+      return;
+    }
+    if (coordsCopy.length > 0) {
+      let crrCoords = coordsCopy.shift();
+      drawLine(crrCoords.x, crrCoords.y);
+      requestAnimationFrame(playLine);
+    }
   }
+  playLine();
 }
 
 window.addEventListener("mousedown", function (e) {
-  action = true;
-  ctx.beginPath();
+  let trgDraw = e.target.closest("#pal");
+  if (!trgDraw) {
+    ctx.beginPath();
+    return;
+  } else {
+    action = true;
+    ctx.beginPath();
+  }
 });
 
 window.addEventListener("mouseup", function (e) {
+  coords.push({
+    b: "*",
+  });
   action = false;
 });
 
@@ -62,20 +88,8 @@ window.addEventListener("mousemove", function (e) {
   if (action) {
     let x = e.clientX;
     let y = e.clientY - 50;
-    coords.push({
-      x: x,
-      y: y,
-    });
-
-    ctx.lineTo(x, y);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.arc(x, y, lnWidth / 2, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.moveTo(x, y);
+    addItemLS(x, y);
+    drawLine(x, y);
   }
 });
 
