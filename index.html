@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="./main.css" />
-    <title>WEB Paint</title>
-  </head>
-  <body>
-    <div class="paint_navbar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="./src/styles/main.css" />
+  <title>WEB Paint</title>
+</head>
+
+<body>
+  <div class="paint_navbar">
+    <div class="paint_navbar-logo">
+      <span class="paint_navbar-logo-first_word">WEB</span>
+      <span class="paint_navbar-logo-second_word">Paint</span>
+    </div>
+    <div class="paint_navbar-tools"></div>
+    <div class="paint_navbar-cntrl-btn">
       <a class="paint_navbar-reset" id="btn_reset">Reset</a>
       <a class="paint_navbar-replay" id="btn_replay">Replay</a>
     </div>
-    <div class="paint_palitra" id="pal"><canvas id="can1"></canvas></div>
 
-    <script src="./main.js"></script>
-  </body>
+
+  </div>
+  <div class="paint_palitra" id="pal"><canvas id="can1"></canvas></div>
+
+  <script src="./src/main.js"></script>
+</body>
+
 </html>

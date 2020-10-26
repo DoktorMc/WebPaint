@@ -1,3 +1,4 @@
+@import './../styles/fonts.css';
 body{
     position: relative;
     margin: 0;
@@ -37,6 +38,10 @@ body{
 }
 .paint_navbar a:active{
     box-shadow: none;
+}
+
+.paint_navbar-logo{
+    font-family: Henny Penny;
 }
 
 .paint_palitra{

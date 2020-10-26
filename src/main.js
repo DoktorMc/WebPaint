@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function () {
+  replay();
+});
+
 let $palitra = document.querySelector("#pal");
 let $canvas = document.querySelector("#can1");
 let ctx = $canvas.getContext("2d");
@@ -9,6 +13,7 @@ $canvas.width = palitraWidth;
 $canvas.height = palitraHeight;
 
 let action = false;
+let brk = true;
 let coords = [];
 let lnWidth = 5;
 let strTime = new Date().getTime();
@@ -19,7 +24,7 @@ if (localStorage.getItem("draw")) {
   coords = JSON.parse(localStorage.getItem("draw"));
 }
 
-let coordsCopy = coords;
+let coordsCopy = coords.slice(0);
 
 function setLS() {
   localStorage.setItem("draw", JSON.stringify(coords));
@@ -28,7 +33,7 @@ function setLS() {
 function addItemLS(x, y) {
   coords.push({
     x: x,
-    y: y
+    y: y,
   });
   setLS();
 }
@@ -47,11 +52,11 @@ function drawLine(x, y) {
 
 function reset() {
   ctx.clearRect(0, 0, palitraWidth, palitraHeight);
+  localStorage.clear();
 }
 
 function replay() {
-  reset();
-  // getCoords();
+  ctx.clearRect(0, 0, palitraWidth, palitraHeight);
   function playLine() {
     if (!coordsCopy.length) {
       ctx.beginPath();
@@ -73,14 +78,15 @@ window.addEventListener("mousedown", function (e) {
     return;
   } else {
     action = true;
+    coords.push({
+      b: "*",
+    });
     ctx.beginPath();
   }
 });
 
 window.addEventListener("mouseup", function (e) {
-  coords.push({
-    b: "*",
-  });
+  brk = false;
   action = false;
 });
 
