@@ -1,7 +1,7 @@
 @font-face {
-  font-family: 'Henny Penny';
-  src: url('./../font/HennyPenny-Regular.woff2') format('woff2'),
-      url('./../font/HennyPenny-Regular.woff') format('woff');
+  font-family: 'Flavors';
+  src: url('./../font/Flavors-Regular.woff2') format('woff2'),
+      url('./../font/Flavors-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
